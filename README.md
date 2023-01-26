@@ -1,2 +1,5 @@
 # karinga.github.io
-Repo for anything connected to Kåringa
+Repo for the github pages for eggs design.
+
+- Originally created for hosting Kåringa related pages
+

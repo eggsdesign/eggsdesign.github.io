@@ -16,6 +16,7 @@
 html,
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 body {
   background-position: center top;
@@ -61,10 +62,11 @@ header {
 }
 
 canvas {
-  position: fixed;
+  margin: 0;
+  overflow-x: hidden;
+  position: absolute;
   z-index: -1;
   top: 0;
-
   left: 0;
 }
 

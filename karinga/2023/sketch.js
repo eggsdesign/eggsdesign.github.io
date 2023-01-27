@@ -1,8 +1,20 @@
 let path = [];
-let f = 200;
+let steps = [];
+let f = 100;
 let g;
+let prevV;
+let side = 10;
+let stepImg;
+
+let totalHeight = document.body.offsetHeight;
+
+console.log(totalHeight);
+function preload() {
+  stepImg = loadImage("./assets/footstep.png");
+}
+
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, totalHeight);
   g = createGraphics(800, 800);
   imageMode(CENTER);
 }
@@ -10,44 +22,72 @@ function setup() {
 function draw() {
   background(250, 240, 200);
   clear();
-  let r = map(noise(frameCount / 300), 0, 1, 0, 400);
+  g.clear();
+  let r = map(noise(frameCount / 100), 0, 1, 0, 400);
 
   let v = createVector(
     g.width / 2 + r * cos(frameCount / f),
     g.height / 2 + r * sin(frameCount / f)
   );
-  if (frameCount % 10 == 0) {
-    path.push(v);
-  }
-  if (path.length > 50) {
-    path.splice(0, 2);
-  }
 
-  g.clear();
-  g.noFill();
-  g.strokeWeight(10);
-  g.stroke("#F1DBAC");
-  setLineDash([10, 15]);
-  //g.beginShape();
-  for (let p of path) {
-    const i = path.indexOf(p);
-    if (i % 2 == 0 && i != 0) {
-      const a = path[i];
-      const b = path[i - 1];
+  if (prevV) {
+    const step = p5.Vector.sub(v, prevV);
+    const ang = step.heading();
 
-      g.line(a.x, a.y, b.x, b.y);
+    if (frameCount % 20 == 0) {
+      side *= -1;
+      steps.push(new footStep(v, ang, side));
+      // console.log(steps.length);
     }
-    //g.vertex(p.x, p.y);
   }
-  //g.endShape();
+
+  steps.forEach((s) => {
+    s.display(g);
+    s.fade();
+  });
+  if (frameCount % 20 == 0) {
+    prevV = v;
+  }
 
   image(g, width / 2, height / 2, 800, 800);
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  totalHeight = document.body.offsetHeight;
+  resizeCanvas(windowWidth, totalHeight);
 }
 
 function setLineDash(list) {
   drawingContext.setLineDash(list);
+}
+
+class footStep {
+  constructor(pos, rot, side) {
+    this.al = 255;
+    this.p = pos;
+    this.ang = rot;
+    this.s = side;
+    this.show = true;
+  }
+
+  display(g) {
+    g.push();
+    g.translate(this.p.x, this.p.y);
+    g.rotate(this.ang + HALF_PI);
+    g.tint(255, this.al);
+    if (this.show) {
+      g.image(stepImg, this.s, 0, 30, 30);
+    }
+    //g.ellipse(0, this.s, 20, 10);
+    g.pop();
+  }
+
+  fade() {
+    if (this.al > 10) {
+      this.al *= 0.98;
+    } else {
+      this.show = false;
+      steps.splice(steps.indexOf(this), 1);
+    }
+  }
 }

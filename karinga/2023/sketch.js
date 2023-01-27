@@ -1,11 +1,11 @@
 let path = [];
 let steps = [];
-let f = 100;
+let f = 150;
 let g;
 let prevV;
 let side = 10;
 let stepImg;
-
+let freq = 20;
 let totalHeight = document.body.offsetHeight;
 
 console.log(totalHeight);
@@ -23,7 +23,7 @@ function draw() {
   background(250, 240, 200);
   clear();
   g.clear();
-  let r = map(noise(frameCount / 100), 0, 1, 0, 400);
+  let r = map(noise(frameCount / 300), 0, 1, 0, 400);
 
   let v = createVector(
     g.width / 2 + r * cos(frameCount / f),
@@ -34,7 +34,7 @@ function draw() {
     const step = p5.Vector.sub(v, prevV);
     const ang = step.heading();
 
-    if (frameCount % 20 == 0) {
+    if (frameCount % freq == 0) {
       side *= -1;
       steps.push(new footStep(v, ang, side));
       // console.log(steps.length);
@@ -45,7 +45,7 @@ function draw() {
     s.display(g);
     s.fade();
   });
-  if (frameCount % 20 == 0) {
+  if (frameCount % freq == 0) {
     prevV = v;
   }
 
@@ -83,7 +83,7 @@ class footStep {
   }
 
   fade() {
-    if (this.al > 10) {
+    if (this.al > 0) {
       this.al *= 0.98;
     } else {
       this.show = false;

@@ -16,8 +16,11 @@
 html,
 body {
   margin: 0;
+}
+body {
   background-position: center top;
   background-image: url(./assets/texture-2.svg);
+  background-size: 800px;
 }
 
 header {
@@ -55,6 +58,14 @@ header {
   color: #250d00;
   text-decoration: underline;
   text-decoration-color: #250d00;
+}
+
+canvas {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+
+  left: 0;
 }
 
 .image-direction {

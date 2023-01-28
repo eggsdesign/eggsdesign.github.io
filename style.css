@@ -1,0 +1,17 @@
+body,
+html {
+  margin: 0;
+}
+
+#logo {
+  max-width: 200px;
+}
+
+header {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}

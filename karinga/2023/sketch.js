@@ -1,4 +1,3 @@
-let path = [];
 let steps = [];
 let f = 150;
 let g;
@@ -45,11 +44,14 @@ function draw() {
     s.display(g);
     s.fade();
   });
+
   if (frameCount % freq == 0) {
     prevV = v;
   }
 
   image(g, width / 2, height / 2, 800, 800);
+
+  //console.log(steps.length);
 }
 
 function windowResized() {
@@ -83,11 +85,13 @@ class footStep {
   }
 
   fade() {
-    if (this.al > 0) {
+    if (this.al > 1) {
       this.al *= 0.98;
     } else {
       this.show = false;
-      steps.splice(steps.indexOf(this), 1);
+      //steps.splice(steps.indexOf(this), 1);
+      //console.log(this.al);
+      steps.shift();
     }
   }
 }

@@ -35,6 +35,14 @@ header {
   text-align: center;
   color: #551f00;
 }
+
+.display-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 300px;
+}
 .section-content {
   font-family: Hultog;
   font-size: 18px;
@@ -77,6 +85,19 @@ canvas {
   object-fit: cover;
 }
 
+footer {
+  margin-top: 64px;
+  margin-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+ul {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 800px) {
   .section-content {
     display: flex;
@@ -89,5 +110,8 @@ canvas {
     text-align: center;
     max-width: 300px;
     color: #250d00;
+  }
+  h3 {
+    text-align: center;
   }
 }
